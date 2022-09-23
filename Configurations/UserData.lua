@@ -1,5 +1,7 @@
 return {
-    ["Username"] = "",
-    ["Password"] = "",
-    ["AccountID"] = "",
+    [game.Players.LocalPlayer.UserId] = {
+        ["Username"] = "",
+        ["Password"] = "",
+        ["AccountID"] = "",
+    }
 }
