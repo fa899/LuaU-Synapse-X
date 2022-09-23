@@ -17,8 +17,6 @@ syn.create_secure_function(<string> code) -- Example: syn.create_secure_function
 [CUSTOM FEATURES]
 syn.create_instance(<string> instance, <boolean> protectinstance, <object/service> parentobject, <table> instancesettings) -- Example: syn.create_instance("Part",true,game:GetService("Workspace"),{Name="PART NAME",Transparency=0.5})
 ↑ Creates an instance, and if the "protectinstance" argument is enabled, then it will automically protect the instance, and then returns it. Still will return the instance when protectinstance is disabled.
-syn.secure_teleport(<Vector3> teleport_position)
-↑ Seats your character into a random selected seat, and then teleports the seat, after you have teleported the seat will return back.
 syn.hook_namecall(<function> func)
 --[[Example:
 local meta = getrawmetatable(game)
@@ -33,7 +31,7 @@ end)
 ↑ Hooks the game's metatable namecall. newcclosure does not require to be called. Game's metatable must be not readonly by setreadonly(metatable, false)
 syn.hook_index(<function> func)
 ↑ Hooks the game's metatable newindex (better than index) newcclosure does not require to be called.
-syn.better_decompile(<object> Script)
+syn.better_decompile(<object> Script) -- ALIASES: syn.decompile (same function to this), decompile (same function to this but modified)
 ↑ (!SCRIPT CANNOT BE A SERVERSCRIPT OTHERWISE IT WILL RETURN NOTHING!) Decompiles the given script.
 Example of the decompiled script:
 
@@ -41,6 +39,31 @@ Example of the decompiled script:
 local I_SYN_1 = print
 local I_SYN_2 = ("Hello World!")
 I_SYN_1(I_SYN_2)
+
+syn.secure_teleport(<table> table, <string> type)
+--[[ ↑ READ DOWN HERE:
+This has LOTS OF METHODS to bypass the anticheat.
+Most important part (table):
+local arguments = {
+TweenSpeed = 1, -- for the "tween" method, duh
+TargetPosition = Vector3.new(25, 25, 25) -- position for the teleport where to teleport, duh
+}
+syn.secure_teleport(arguments, "rocket")
+Now for the methods:
+"tween" (straight goes for the target position)
+"chair" (makes ur character sit down into a chair and teleports the seat then makes u no longer sit and chair goes back)
+"aicframe" (uses pathfinding system) BROKEN
+"antilagback" (teleports u back a couple times) ONLY ANTICHEATS WITHOUT SetNetworkOwner(nil) which slows u down just like bedwars anticheat
+"clone" (clones your character and then makes the clone with your old character teleport to the same target and after that ur character changes to ur old)
+"rocket" (makes your character fly up and then fly to the target position and then flies down)
+"hoodmodded" (bypasses hoodmodded anticheat's antiteleport)
+--]]
+
+syn.toggle_client_anticheat() -- <void>
+↑ Toggles clientsided anticheat which fires and runs remotes, and detects whenever there's a goofy anticheat script in ur character.
+
+-- ↑ Default: FALSE
+-- SET THIS TO TRUE IF YOU WANNA BYPASS ANTICHEATS!
 
 Alright, enough of the documentation. Enjoy!
 ```
