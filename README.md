@@ -36,9 +36,11 @@ syn.hook_index(<function> func)
 syn.better_decompile(<object> Script)
 ↑ (!SCRIPT CANNOT BE A SERVERSCRIPT OTHERWISE IT WILL RETURN NOTHING!) Decompiles the given script.
 Example of the decompiled script:
-```lua
+
 -- Decompiled using Synapse X LuaU Decompiler.
 local I_SYN_1 = print
 local I_SYN_2 = ("Hello World!")
 I_SYN_1(I_SYN_2)
+
+Alright, enough of the documentation. Enjoy!
 ```
