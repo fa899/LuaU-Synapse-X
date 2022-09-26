@@ -9,7 +9,7 @@ syn.unprotect_gui(GUI <ScreenGui (Instance)>) -- Example: syn.unprotect_gui(Inst
 ↑ Unprotects the selected GUI in the first argument. This works for instances like: Part, BasePart, BillboardGui and more.
 syn.queue_on_teleport(<string> code) -- Example: syn.queue_on_teleport([[print('This script runs on teleport!')]])
 ↑ Runs code after you have teleported.
-syn.is_beta(<void) -- Example: syn.is_beta()
+syn.is_beta(<void>) -- Example: syn.is_beta()
 ↑ If the synapse x is in BETA, it will return true, otherwise, will return false.
 syn.request(<table> arguments) -- Example: syn.request({Url = "https://x.synapse.to/", Method = "GET"})
 ↑ Returns website's code/Fires webhooks.
