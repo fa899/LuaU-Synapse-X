@@ -265,6 +265,7 @@ local UnProtectInstance = function(NewInstance)
 	table.remove(ProtectedInstances, table.find(ProtectedInstances, NewInstance));
 end
 
+local oldsynapse = syn or 0
 local syn = {}
 syn.protect_gui = ProtectInstance
 syn.unprotect_gui = UnProtectInstance
@@ -274,6 +275,9 @@ syn.request = request or fluxus and fluxus.request or http_request or http.reque
 syn.setthreadidentity = setidentity or set_identity
 syn.create_secure_function = function(func)
 	pcall(func)
+end
+if oldsynapse ~= 0 then
+syn = oldsynapse
 end
 syn.create_instance = function(inst, protectinstance, parentobject, instancesettings)
 	local instance = Instance.new(inst)
