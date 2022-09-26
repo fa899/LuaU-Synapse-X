@@ -1,3 +1,9 @@
+if _G.AlreadyExecuted == "yes" then
+return warn("Already executed the script!")
+else
+-- lol
+end
+_G.AlreadyExecuted = "yes"
 --[[ Iris Instance Protect ]]--
 local ProtectedInstances = {};
 local Connections = getconnections or get_connections;
@@ -307,10 +313,10 @@ local newdecompile = function(script)
 	decompiled_src = string.gsub(decompiled_src, "if not v", "if not I_SYN_")
 	decompiled_src = string.gsub(decompiled_src, "return v", "return I_SYN_")
 	decompiled_src = string.gsub(decompiled_src, "#v", "#I_SYN_")
-	for i = 1, 500 do
+	for i = 1, 600 do
 		decompiled_src = string.gsub(decompiled_src, tostring("v"..i), "I_SYN_"..i)
 	end
-	for i = 1, 500 do
+	for i = 1, 600 do
 		decompiled_src = string.gsub(decompiled_src, tostring("v"..i.."."), "I_SYN_"..i..".")
 	end
 	for i = 1, #decompiled_src + 1 do
