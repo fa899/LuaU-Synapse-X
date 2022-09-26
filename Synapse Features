@@ -292,14 +292,19 @@ syn.hook_index = function(func)
 	metatable.__namecall = newcclosure(func)
 	if setreadonly then setreadonly(metatable, true) elseif make_writeable then make_writeable(metatable, true) elseif makewriteable then makewriteable(metatable, true) end
 end
-syn.better_decompile = function(script)
+local olddecompile = decompile or de_compile
+local newdecompile = function(script)
 	if script:IsA("Script") then
 		return warn("\nServerScripts cannot be decompiled.")
 	else
-		local decompiled_src = decompile(script)
+		local decompiled_src = olddecompile(script)
 		decompiled_src = "-- Decompiled using Synapse X LuaU Decompiler.\n"..decompiled_src
 		decompiled_src = string.gsub(decompiled_src, "local v", "local I_SYN_")
 		return decompiled_src
 	end
 end
+syn.better_decompile = function(script)
+	return newdecompile(script)
+end
 getgenv().syn = syn
+getgenv().decompile = newdecompile
