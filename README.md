@@ -15,8 +15,12 @@ syn.request(<table> arguments) -- Example: syn.request({Url = "https://x.synapse
 ↑ Returns website's code/Fires webhooks.
 syn.create_secure_function(<string> code) -- Example: syn.create_secure_function([[print("Anticheats do not see this!")]]) ←-- BETA, MIGHT NOT WORK!
 [CUSTOM FEATURES]
-syn.create_instance(<string> instance, <boolean> protectinstance, <object/service> parentobject, <table> instancesettings) -- Example: syn.create_instance("Part",true,game:GetService("Workspace"),{Name="PART NAME",Transparency=0.5})
-↑ Creates an instance, and if the "protectinstance" argument is enabled, then it will automically protect the instance, and then returns it. Still will return the instance when protectinstance is disabled.
+syn.create_instance(<string> instance, <boolean> protectinstance, <object/service> parentobject, <table> instancesettings)
+--[[↑ Creates an instance, and if the "protectinstance" argument is enabled, then it will automically protect the instance, and then returns it. Still will return the instance when protectinstance is disabled.
+Example:
+local part = syn.create_instance("Part",true,game:GetService("Workspace"),{Name="PART NAME",Transparency=0.5})
+part.Name = "yes this is a brick"
+]]
 syn.hook_namecall(<function> func)
 --[[Example:
 local meta = getrawmetatable(game)
