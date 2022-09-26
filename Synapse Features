@@ -294,16 +294,55 @@ syn.hook_index = function(func)
 end
 local olddecompile = decompile or de_compile
 local newdecompile = function(script)
-	if script:IsA("Script") then
-		return warn("\nServerScripts cannot be decompiled.")
-	else
-		local decompiled_src = olddecompile(script)
-		decompiled_src = "-- Decompiled using Synapse X LuaU Decompiler.\n"..decompiled_src
-		decompiled_src = string.gsub(decompiled_src, "local v", "local I_SYN_")
-		return decompiled_src
+	local decompiled_src = olddecompile(script)
+	decompiled_src = "-- Decompiled using Synapse X LuaU Decompiler.\n"..decompiled_src
+	decompiled_src = string.gsub(decompiled_src, "local v", "local I_SYN_")
+	decompiled_src = string.gsub(decompiled_src, "= v", "= I_SYN_")
+	decompiled_src = string.gsub(decompiled_src, "= (v", "= (I_SYN_")
+	decompiled_src = string.gsub(decompiled_src, ", v", ", I_SYN_")
+	decompiled_src = string.gsub(decompiled_src, "{v", "{I_SYN_")
+	decompiled_src = string.gsub(decompiled_src, "v = ", "I_SYN_ = ")
+	decompiled_src = string.gsub(decompiled_src, "and v", "and I_SYN_")
+	decompiled_src = string.gsub(decompiled_src, "if v", "if I_SYN_")
+	decompiled_src = string.gsub(decompiled_src, "if not v", "if not I_SYN_")
+	decompiled_src = string.gsub(decompiled_src, "return v", "return I_SYN_")
+	decompiled_src = string.gsub(decompiled_src, "#v", "#I_SYN_")
+	for i = 1, 500 do
+		decompiled_src = string.gsub(decompiled_src, tostring("v"..i), "I_SYN_"..i)
 	end
+	for i = 1, 500 do
+		decompiled_src = string.gsub(decompiled_src, tostring("v"..i.."."), "I_SYN_"..i..".")
+	end
+	for i = 1, #decompiled_src + 1 do
+		decompiled_src = string.gsub(decompiled_src, tostring("v"..i), tostring("I_SYN_"..i))
+		if not decompiled_src:find("I_SYN_"..tostring(i)) then
+			decompiled_src = string.gsub(decompiled_src, tostring("v"..i), tostring("I_SYN_"..i))
+		else
+			break
+		end
+	end
+	for i = 1, #decompiled_src + 1 do
+		decompiled_src = string.gsub(decompiled_src, tostring("v"..i.."."), tostring("I_SYN_"..i.."."))
+		if not decompiled_src:find("I_SYN_"..tostring(i)..".") then
+			decompiled_src = string.gsub(decompiled_src, tostring("v"..i.."."), tostring("I_SYN_"..i.."."))
+		else
+			break
+		end
+	end
+	for i = 1, #decompiled_src + 1 do
+		decompiled_src = string.gsub(decompiled_src, tostring("v"..i.." ="), tostring("I_SYN_"..i.." ="))
+		if not decompiled_src:find("I_SYN_"..tostring(i).." =") then
+			decompiled_src = string.gsub(decompiled_src, tostring("v"..i.." ="), tostring("I_SYN_"..i.." ="))
+		else
+			break
+		end
+	end
+	return decompiled_src
 end
 syn.better_decompile = function(script)
+	return newdecompile(script)
+end
+syn.decompile = function(script)
 	return newdecompile(script)
 end
 getgenv().syn = syn
