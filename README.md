@@ -45,8 +45,8 @@ I_SYN_3 = task
 I_SYN_4 = I_SYN_3.wait
 local I_SYN_2 = ("Hello World!")
 local I_SYN_5 = 1
-I_SYN_1(I_SYN_2)
-I_SYN_4(I_SYN_5)
+I_SYN_1(I_SYN_2) -- print("Hello World!")
+I_SYN_4(I_SYN_5) -- task.wait(1)
 
 syn.secure_teleport(<table> table, <string> type)
 --[[ ↑ READ DOWN HERE:
