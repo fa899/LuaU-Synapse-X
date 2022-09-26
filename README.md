@@ -35,14 +35,18 @@ end)
 ↑ Hooks the game's metatable namecall. newcclosure does not require to be called. Game's metatable must be not readonly by setreadonly(metatable, false)
 syn.hook_index(<function> func)
 ↑ Hooks the game's metatable newindex (better than index) newcclosure does not require to be called.
-syn.better_decompile(<object> Script) -- ALIASES: syn.decompile (same function to this), decompile (same function to this but modified)
+syn.better_decompile(<object> Script) -- ALIASES: syn.decompile (same function to this), decompile (ONCE SYNAPSE FEATURES SCRIPT IS EXECUTED THIS WILL BE CHANGED SO IT ALWAYS WILL RUN syn.better_decompile !)
 ↑ (!SCRIPT CANNOT BE A SERVERSCRIPT OTHERWISE IT WILL RETURN NOTHING!) Decompiles the given script.
 Example of the decompiled script:
 
 -- Decompiled using Synapse X LuaU Decompiler.
 local I_SYN_1 = print
+I_SYN_3 = task
+I_SYN_4 = I_SYN_3.wait
 local I_SYN_2 = ("Hello World!")
+local I_SYN_5 = 1
 I_SYN_1(I_SYN_2)
+I_SYN_4(I_SYN_5)
 
 syn.secure_teleport(<table> table, <string> type)
 --[[ ↑ READ DOWN HERE:
