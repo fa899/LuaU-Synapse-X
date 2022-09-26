@@ -1,5 +1,9 @@
 # LuaU Synapse X
 Lua Type Synapse X, Blue &amp; Old UI
+## Executable in every tab doesnt matter where it is
+You can run these functions on ur own executors!
+## More functions incoming
+There will be WAY more functions that will come!
 ## Features like Synapse X
 This gives you access to features like:
 ```lua
