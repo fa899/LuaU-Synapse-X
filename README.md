@@ -7,6 +7,11 @@ syn.protect_gui(GUI <ScreenGui (Instance)>) -- Example: syn.protect_gui(Instance
 ↑ Protects the selected GUI in the first argument. This works for instances like: Part, BasePart, BillboardGui and more.
 syn.unprotect_gui(GUI <ScreenGui (Instance)>) -- Example: syn.unprotect_gui(Instance.new("ScreenGui"))
 ↑ Unprotects the selected GUI in the first argument. This works for instances like: Part, BasePart, BillboardGui and more.
+--- [CUSTOM FEATURE] {
+syn.is_protected(obj <ScreenGui (Instance)>) -- Example: syn.is_protected(Instance.new("ScreenGui"))
+if syn.protect_gui was called on the instance, then will return true. Otherwise if the object is not protected, then will return false.
+↑
+} ---------------
 syn.queue_on_teleport(<string> code) -- Example: syn.queue_on_teleport([[print('This script runs on teleport!')]])
 ↑ Runs code after you have teleported.
 syn.is_beta(<void>) -- Example: syn.is_beta()
