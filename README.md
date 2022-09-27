@@ -4,6 +4,15 @@ Lua Type Synapse X, Blue &amp; Old UI
 You can run these functions on ur own executors!
 ## More functions incoming
 There will be WAY more functions that will come!
+Functions that this synapse has that normal synapse x doesn't:
+| Default Synapse X     | This Synapse X |
+| ---      | ---       |
+| AutoAttach ✔ | Auto Attach ❌|
+| More Undetectable ❌ | More Undetectable ✔ |
+| Readable Decompiler ✔ | Readable Decompiler ✔ |
+| Multi Injection ✔ | Multi Injection ❌ |
+| UIS ✔ | UIS ✔ |
+| Scripting Features ✔ | Scripting Features ✔ |
 ## Features like Synapse X
 This gives you access to features like:
 ```lua
