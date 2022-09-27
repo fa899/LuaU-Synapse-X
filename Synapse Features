@@ -268,13 +268,6 @@ end
 local syn = {}
 syn.protect_gui = ProtectInstance
 syn.unprotect_gui = UnProtectInstance
-syn.is_protected = function(inst)
-	if table.find(ProtectedInstances, inst) then
-		return true
-	elseif not table.find(ProtectedInstances, inst) then
-		return false
-	end
-end
 syn.queue_on_teleport = queue_on_teleport or queueonteleport or qot or q_o_t
 syn.is_beta = function() return true end
 syn.request = request or fluxus and fluxus.request or http_request or http.request
@@ -314,17 +307,39 @@ local newdecompile = function(script)
 	end
 	local decompiled_src = olddecompile(script)
 	decompiled_src = "-- Decompiled with the Synapse X Luau decompiler.\n"..decompiled_src
-	decompiled_src = string.gsub(decompiled_src, "local v", "local I_SYN_")
-	decompiled_src = string.gsub(decompiled_src, "= v", "= I_SYN_")
-	decompiled_src = string.gsub(decompiled_src, "= (v", "= (I_SYN_")
-	decompiled_src = string.gsub(decompiled_src, ", v", ", I_SYN_")
-	decompiled_src = string.gsub(decompiled_src, "{v", "{I_SYN_")
-	decompiled_src = string.gsub(decompiled_src, "v = ", "I_SYN_ = ")
-	decompiled_src = string.gsub(decompiled_src, "and v", "and I_SYN_")
-	decompiled_src = string.gsub(decompiled_src, "if v", "if I_SYN_")
-	decompiled_src = string.gsub(decompiled_src, "if not v", "if not I_SYN_")
-	decompiled_src = string.gsub(decompiled_src, "return v", "return I_SYN_")
-	decompiled_src = string.gsub(decompiled_src, "#v", "#I_SYN_")
+	if decompiled_src:find("local v") then
+		decompiled_src = string.gsub(decompiled_src, "local v", "local I_SYN_")
+	end
+	if decompiled_src:find("= v") then
+		decompiled_src = string.gsub(decompiled_src, "= v", "= I_SYN_")
+	end
+	if decompiled_src:find("= (v") then
+		decompiled_src = string.gsub(decompiled_src, "= (v", "= (I_SYN_")
+	end
+	if decompiled_src:find(", v") then
+		decompiled_src = string.gsub(decompiled_src, ", v", ", I_SYN_")
+	end
+	if decompiled_src:find("{v") then
+		decompiled_src = string.gsub(decompiled_src, "{v", "{I_SYN_")
+	end
+	if decompiled_src:find("v = ") then
+		decompiled_src = string.gsub(decompiled_src, "v = ", "I_SYN_ = ")
+	end
+	if decompiled_src:find("and v") then
+		decompiled_src = string.gsub(decompiled_src, "and v", "and I_SYN_")
+	end
+	if decompiled_src:find("if v") then
+		decompiled_src = string.gsub(decompiled_src, "if v", "if I_SYN_")
+	end
+	if decompiled_src:find("if not v") then
+		decompiled_src = string.gsub(decompiled_src, "if not v", "if not I_SYN_")
+	end
+	if decompiled_src:find("return v") then
+		decompiled_src = string.gsub(decompiled_src, "return v", "return I_SYN_")
+	end
+	if decompiled_src:find("#v") then
+		decompiled_src = string.gsub(decompiled_src, "#v", "#I_SYN_")
+	end
 	for i = 1, 760 do
 		decompiled_src = string.gsub(decompiled_src, tostring("v"..i), "I_SYN_"..i)
 	end
@@ -363,185 +378,5 @@ end
 syn.decompile = function(script)
 	return newdecompile(script)
 end
-
-(function()
-local folders = {
-	["1"] = syn.create_instance("Configuration", true, game.CoreGui, {}),
-	["2"] = syn.create_instance("Folder", true, game.CoreGui, {}),
-	["3"] = syn.create_instance("Model", true, game.CoreGui, {}),
-}
-
-for i, v in pairs(folders) do
-folders[tostring(i)].ChildAdded:Connect(function(i)
-syn.protect_gui(i)
-end)
-folders[tostring(i)].ChildRemoving:Connect(function(i)
-syn.protect_gui(i)
-end)
-end
-
-getgenv().gethui = function()
-return folders[tostring(math.random(1,3))]
-end
-end)();
-function findNearestSeat()
-	local seat: Seat = nil; do
-		repeat 
-			local counter = 0
-			for i, v in pairs(workspace:GetDescendants()) do
-				if v:IsA("Seat") then
-					seat = v
-				elseif v:IsA("VehicleSeat") then
-					seat = v
-				end
-				game:GetService("RunService").Heartbeat:wait()
-			end
-
-			counter += 1
-			wait()
-			if counter >= 3 then
-				warn("findNearestSeat failed, reason: failed to find a seat.")
-				break
-			end
-		until seat ~= nil
-		return seat
-	end
-end
-
-function safe_teleport(args, mode)
-	if type(args.TargetPosition) ~= "vector" then
-		warn("Failed to run safe_teleport, As TargetPosition expected Vector3, got "..typeof(args.TargetPosition)..".")
-		return false
-	end	
-	local tweenspeed = args.TweenSpeed
-	local targetpos = args.TargetPosition
-	local m = mode
-	local vec3_, cf = Vector3.new(targetpos), CFrame.new(targetpos)
-	if tweenspeed then
-		if type(tweenspeed) ~= "number" then
-			warn("Failed to run safe_teleport, As TweenSpeed expected number, got "..type(tweenspeed)..".")
-			return false
-		end
-	end
-
-	local c = game.Players.LocalPlayer.Character
-	local p = c.PrimaryPart
-	local h = c:FindFirstChildWhichIsA("Humanoid")
-	local is_alive = false
-
-	if not p then
-		warn("Failed to run safe_teleport, because player's character does not have an primary part, or is reanimated without an primary part.")
-		return false
-	end
-
-	if h and h.Health >= 0 then
-		is_alive = true
-	end
-
-	if is_alive ~= true then
-		warn("Failed to run safe_teleport, because player's character is not alive.")
-		return false
-	end
-
-	if mode == "tween" then
-		return game:GetService("TweenService"):Create(p, TweenInfo.new(tweenspeed, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {CFrame = cf}):Play()
-	elseif mode == "platformtween" then
-		for i = 1, 10 do
-			local vec3 = Instance.new("Vector3Value")
-			local pf = Instance.new("Part", workspace)
-			local tween = game:GetService("TweenService"):Create(vec3, TweenInfo.new(tweenspeed, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {Value = cf.Position})
-			pf.Anchored = true
-			pf.CanCollide = true
-			pf.Transparency = 0.5
-
-			vec3.Value = p.Position
-
-			vec3.Changed:Connect(function(v)
-				p.Velocity = Vector3.new(0, 0, 0) --[[AntiTeleport Flag Bypass]]
-				p.CFrame = CFrame.new(vec3.Value)
-				pf.CFrame = p.CFrame + p.CFrame.UpVector * -3.5
-			end)
-
-			tween.Completed:Connect(function()
-				pf:Destroy()
-				vec3:Destroy()
-				tween = nil
-			end)
-
-			tween:Play()
-			wait()
-		end
-	elseif mode == "chair" then
-		local seat = findNearestSeat()
-		if seat then
-			local oldcf = seat.CFrame
-			wait(.1)
-			seat.CFrame = p.CFrame
-			seat:Sit(h)
-			seat.CFrame = cf
-			wait(.5)
-			h.Sit = false
-			wait()
-			seat.CFrame = oldcf
-			h.Sit = false
-		elseif not seat then
-			error("Failed to find a seat for safe_teleport. (The map may not have a seat)")
-			return false
-		end
-	elseif mode == "hoodmodded" then
-		game:GetService("TweenService"):Create(p, TweenInfo.new(tweenspeed, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {CFrame = cf}):Play()
-	elseif mode == "rocket" then
-		local rocketspeed = 0.2
-		local first, second, third = game:GetService("TweenService"):Create(p, TweenInfo.new(rocketspeed, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {CFrame = p.CFrame + p.CFrame.UpVector * 5}), game:GetService("TweenService"):Create(p, TweenInfo.new(tweenspeed, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {CFrame = cf}), game:GetService("TweenService"):Create(p, TweenInfo.new(rocketspeed, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {CFrame = p.CFrame + p.CFrame.UpVector * -2})
-		first.Completed:Connect(function()
-			second:Play()
-		end)
-		second.Completed:Connect(function()
-			--[[
-				--[??????????????????????????????????????????
-				??????????????????????????????????????????
-				??????????????????????????????????????????
-				??????????????????????????????????????????
-				??????????????????????????????????????????
-				??????????????????????????????????????????
-				??????????????????????????????????????????
-				??????????????????????????????????????????]--
-			--]]
-		end)
-		third.Completed:Connect(function()
-			first, second, third = nil, nil, nil
-		end)
-		first:Play()
-	elseif mode == "antilagback" then
-		local conn = game:GetService("RunService").Stepped:Connect(function()
-			for i, v in pairs(c:GetChildren()) do
-				if v.ClassName:lower():find("part") and not v.ClassName:lower():find("icle") then
-					v.CanCollide = false
-				end
-			end
-		end)
-		repeat
-			local num = 51011
-			local bodypos = Instance.new("BodyPosition")
-			local velo = Instance.new("BodyVelocity")
-			velo.Parent = p
-			velo.Velocity = Vector3.new(0, 0, 0)
-			velo.P = num
-			bodypos.Parent = p
-			bodypos.Position = targetpos
-			bodypos.MaxForce = Vector3.new(num, num, num)
-			bodypos.P = num
-			wait(3)
-			bodypos:Destroy()
-			velo:Destroy()
-		until (p.Position - targetpos).Magnitude <= 20
-		conn:Disconnect()
-		conn = nil
-	end
-
-	return true
-end
-
-syn.secure_teleport = safe_teleport
 getgenv().syn = syn
 getgenv().decompile = newdecompile
