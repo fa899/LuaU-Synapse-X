@@ -57,7 +57,7 @@ local I_SYN_5 = 1
 I_SYN_1(I_SYN_2) -- print("Hello World!")
 I_SYN_4(I_SYN_5) -- task.wait(1)
 
-syn.secure_teleport(<table> table, <string> type)
+syn.secure_teleport(<table> table, <string> type) -- FULLY REWRITTEN, MIGHT NOT WORK!
 --[[ ↑ READ DOWN HERE:
 This has LOTS OF METHODS to bypass the anticheat.
 Most important part (table):
@@ -68,10 +68,9 @@ TargetPosition = Vector3.new(25, 25, 25) -- position for the teleport where to t
 syn.secure_teleport(arguments, "rocket")
 Now for the methods:
 "tween" (straight goes for the target position)
-"chair" (makes ur character sit down into a chair and teleports the seat then makes u no longer sit and chair goes back)
-"aicframe" (uses pathfinding system) BROKEN
+"chair" (makes ur character sit down into a chair and teleports the seat then makes u no longer sit and chair goes back) -- FULLY SECURE!
 "antilagback" (teleports u back a couple times) ONLY ANTICHEATS WITHOUT SetNetworkOwner(nil) which slows u down just like bedwars anticheat
-"clone" (clones your character and then makes the clone with your old character teleport to the same target and after that ur character changes to ur old)
+Antilagback is detectable (gives you noclip), beaware!
 "rocket" (makes your character fly up and then fly to the target position and then flies down)
 "hoodmodded" (bypasses hoodmodded anticheat's antiteleport)
 --]]
