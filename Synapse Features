@@ -313,7 +313,7 @@ local newdecompile = function(script)
 		error("Failed to decompile, must be an LocalScript or ModuleScript, got "..script.ClassName == "Script" and "ServerScript" or script.ClassName..".")
 	end
 	local decompiled_src = olddecompile(script)
-	decompiled_src = "-- Decompiled using Synapse X LuaU Decompiler.\n"..decompiled_src
+	decompiled_src = "-- Decompiled with the Synapse X Luau decompiler.\n"..decompiled_src
 	decompiled_src = string.gsub(decompiled_src, "local v", "local I_SYN_")
 	decompiled_src = string.gsub(decompiled_src, "= v", "= I_SYN_")
 	decompiled_src = string.gsub(decompiled_src, "= (v", "= (I_SYN_")
