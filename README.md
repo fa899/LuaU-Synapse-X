@@ -57,7 +57,7 @@ syn.better_decompile(<object> Script) -- ALIASES: syn.decompile (same function t
 ↑ (!SCRIPT CANNOT BE A SERVERSCRIPT OTHERWISE IT WILL RETURN NOTHING!) Decompiles the given script.
 Example of the decompiled script:
 
--- Decompiled using Synapse X LuaU Decompiler.
+-- Decompiled with the Synapse X Luau decompiler.
 local I_SYN_1 = print
 I_SYN_3 = task
 I_SYN_4 = I_SYN_3.wait
