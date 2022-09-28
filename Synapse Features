@@ -295,7 +295,7 @@ end
 syn.hook_index = function(func)
 	local metatable = GetRawMT(game)
 	if setreadonly then setreadonly(metatable, false) elseif make_writeable then make_writeable(metatable, false) elseif makewriteable then makewriteable(metatable, false) end
-	metatable.__namecall = newcclosure(func)
+	metatable.__newindex = newcclosure(func)
 	if setreadonly then setreadonly(metatable, true) elseif make_writeable then make_writeable(metatable, true) elseif makewriteable then makewriteable(metatable, true) end
 end
 local olddecompile = decompile or de_compile
