@@ -1,8 +1,5 @@
-if _G.AlreadyExecuted == "yes" then
-return warn("Already executed the script!")
-else
--- lol
-end
+if _G.AlreadyExecuted == "yes" then return warn("Already executed the script!") else end -- Already executed check
+
 _G.AlreadyExecuted = "yes"
 --[[ Iris Instance Protect ]]--
 local ProtectedInstances = {};
