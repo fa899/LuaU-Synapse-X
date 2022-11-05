@@ -1,18 +1,28 @@
 # LuaU Synapse X
 Lua Type Synapse X, Blue &amp; Old UI
+
 New decompiler is removed for default decomp when executed syn features,
+
 to run the new decompiler use:
+
 syn.decompile(<obj?>) -- LocalScript or ModuleScript
+
 Example:
+
 syn.decompile(Instance.new("LocalScript", workspace))
+
 -- Output with default decompiler
+```
 local v1 = print
 local v2 = "Hello World!"
 v1(v2)
+```
 -- Output with syn.decompile decompiler
+```
 local I_SYN_1 = print
 local I_SYN_2 = "Hello World!"
 I_SYN_1(I_SYN_2)
+```
 ## Executable in every tab doesnt matter where it is
 You can run these functions on ur own executors!
 ## More functions incoming
