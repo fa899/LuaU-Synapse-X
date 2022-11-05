@@ -1,5 +1,18 @@
 # LuaU Synapse X
 Lua Type Synapse X, Blue &amp; Old UI
+New decompiler is removed for default decomp when executed syn features,
+to run the new decompiler use:
+syn.decompile(<obj?>) -- LocalScript or ModuleScript
+Example:
+syn.decompile(Instance.new("LocalScript", workspace))
+-- Output with default decompiler
+local v1 = print
+local v2 = "Hello World!"
+v1(v2)
+-- Output with syn.decompile decompiler
+local I_SYN_1 = print
+local I_SYN_2 = "Hello World!"
+I_SYN_1(I_SYN_2)
 ## Executable in every tab doesnt matter where it is
 You can run these functions on ur own executors!
 ## More functions incoming
@@ -7,15 +20,16 @@ There will be WAY more functions that will come!
 Functions that this synapse has that normal synapse x doesn't:
 | Default Synapse X     | This Synapse X |
 | ---      | ---       |
-| AutoAttach ✔ | Auto Attach ❌|
+| AutoAttach ✔ | Auto Attach ✔|
 | More Undetectable ❌ | More Undetectable ✔ |
 | Readable Decompiler ✔ | Readable Decompiler ✔ |
 | Multi Injection ✔ | Multi Injection ❌ |
 | UIS ✔ | UIS ✔ |
 | Scripting Features ✔ | Scripting Features ✔ |
+This will contain error checks.
 ## Features like Synapse X
 This gives you access to features like:
-```lua
+```
 syn.protect_gui(GUI <ScreenGui (Instance)>) -- Example: syn.protect_gui(Instance.new("ScreenGui"))
 ↑ Protects the selected GUI in the first argument. This works for instances like: Part, BasePart, BillboardGui and more.
 syn.unprotect_gui(GUI <ScreenGui (Instance)>) -- Example: syn.unprotect_gui(Instance.new("ScreenGui"))
@@ -31,7 +45,27 @@ syn.is_beta(<void>) -- Example: syn.is_beta()
 ↑ If the synapse x is in BETA, it will return true, otherwise, will return false.
 syn.request(<table> arguments) -- Example: syn.request({Url = "https://x.synapse.to/", Method = "GET"})
 ↑ Returns website's code/Fires webhooks.
-syn.create_secure_function(<string> code) -- Example: syn.create_secure_function([[print("Anticheats do not see this!")]]) ←-- BETA, MIGHT NOT WORK!
+syn.create_secure_function(<string> code) -- FULLY REWROTE.
+How to use:
+syn.create_secure_function(SynapseSha)
+How to receive Synapse SHA:
+Functions
+Encrypt - syn.sha_encrypt (?(code)?)
+Decrypt - syn.sha_decrypt (?(synapse sha code)?)
+Example:
+print(syn.sha_encrypt("HelloWorld!"))
+-- Output (syn.sha_encrypt("HelloWorld!"))
+PeVFmCXxxSLgMvKdmCLvMxOIdMXXLvMxOIdMXXOvkSlvMdikc==oKGposdmvSLKKVMklcsnbJDOvkSlvMdikc==ldMvxNRmxLvMxOIdMXXbbLxMkFmsdSObkcxok
+To encode your code, write:
+syn.sha_encrypt(<string> msg) -- Example: syn.sha_encrypt("hello world, print")
+syn.run_secure_function(<string/function>, str/func)
+run secure function examples:
+--SYNAPSE SHA
+syn.run_secure_function("ovMCkdSAOIldMvxNRmxLfMvKdcmFodSKkvlMXOckMSixmnBoXmcDjVnPeVFmCXxxLfMvKdcmBoXmcDjVn")
+--DEFAULT FUNCTION
+syn.run_secure_function(function()
+print('Hello World!')
+end)
 [CUSTOM FEATURES]
 syn.create_instance(<string> instance, <boolean> protectinstance, <object/service> parentobject, <table> instancesettings)
 --[[↑ Creates an instance, and if the "protectinstance" argument is enabled, then it will automically protect the instance, and then returns it. Still will return the instance when protectinstance is disabled.
