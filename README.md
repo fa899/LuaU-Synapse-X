@@ -36,6 +36,8 @@ Functions that this synapse has that normal synapse x doesn't:
 | Multi Injection ✔ | Multi Injection ❌ |
 | UIS ✔ | UIS ✔ |
 | Scripting Features ✔ | Scripting Features ✔ |
+
+
 This will contain error checks.
 ## Features like Synapse X
 This gives you access to features like:
