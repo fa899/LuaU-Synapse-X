@@ -270,296 +270,46 @@ syn.is_beta = function() return true end
 syn.request = request or fluxus and fluxus.request or http_request or http.request
 syn.setthreadidentity = setidentity or set_identity or setthreadidentity or set_thread_identity
 
-local hashes = {
-	API = {},
-	builtin = {
-		["a"] = "gDsxyH",
-		["b"] = "lGDpC",
-		["c"] = "GmVlOdX",
-		["d"] = "bbLxMkFms",
-		["e"] = "SLgMvKdmC",
-		["f"] = "DlMvKsUs",
-		["g"] = "lMxIsAnV",
-		["h"] = "PeVFmCXxx",
-		["i"] = "LfMvKdcm",
-		["j"] = "LvMxoIOf",
-		["k"] = "LfMxLGiDmv",
-		["l"] = "LvMxOIdMXX",
-		["m"] = "DlCxOoppXe",
-		["n"] = "FodSKkvlMX",
-		["o"] = "OvkSlvMdikc==",
-		["p"] = "ovMCkdSAOI",
-		["q"] = "LvmAksxmvl",
-		["r"] = "ldMvxNRmx",
-		["t"] = "OckMSixmn",
-		["v"] = "LXoKMdicmm",
-		["s"] = "KvmXkmEgi",
-		["x"] = "LvoASMvlkcx",
-		["y"] = "OdgspjmBOD",
-		["z"] = "kovfkMPdcxpo",
-		[":"] = "CmkSAMNv",
-		[";"] = "OvmSOimjv",
-		["-"] = "LmvoSImvf",
-		["+"] = "KOvkmASkvm",
-		["_"] = "BkPSXOkv",
-		["A"] = "gDsxyH",
-		["B"] = "lGDpC",
-		["C"] = "GmVlOdX",
-		["D"] = "bbLxMkFms",
-		["E"] = "SLgMvKdmC",
-		["F"] = "DlMvKsUs",
-		["G"] = "lMxIsAnV",
-		["H"] = "PeVFmCXxx",
-		["I"] = "LfMvKdcm",
-		["J"] = "LvMxoIOf",
-		["K"] = "LfMxLGiDmv",
-		["L"] = "LvMxOIdMXX",
-		["M"] = "DlCxOoppXe",
-		["N"] = "FodSKkvlMX",
-		["O"] = "OvkSlvMdikc==",
-		["P"] = "ovMCkdSAOI",
-		["Q"] = "LvmAksxmvl",
-		["R"] = "ldMvxNRmx",
-		["T"] = "OckMSixmn",
-		["V"] = "LXoKMdicmm",
-		["S"] = "KvmXkmEgi",
-		["X"] = "LvoASMvlkcx",
-		["Y"] = "OdgspjmBOD",
-		["Z"] = "kovfkMPdcxpo",
-		["w"] = "KVMklcsnbJD",
-		["W"] = "KVMklcsnbJD",
-		["/"] = 'OkcvkMDxlv',
-		[ [[\]] ] = "PVmSkxKfm",
-		["1"] = "obMDixmvSSS",
-		["2"] = "XjnfJDncxlkm",
-		["3"] = "ClxNJvkdn",
-		["4"] = "glSDncmm",
-		["5"] = "POpckxopMDvcxm",
-		["6"] = "VMcxkAmvke",
-		["7"] = "VOpsdmvjk",
-		["8"] = "ODSjiov",
-		["9"] = "dOSGnjjksvcx",
-		["0"] = "9teuisodmg",
-		["!"] = "dSObkcxok",
-		[" "] = "oKGposdmvSLK",
-		["u"] = "BoXMfdOSVM",
-		["'"] = "BoXmcDjVn",
-		['"'] = "SSBipksdmgosdB",
-		["["] = "BOxSVpkm",
-		["]"] = "VpBodXmjk",
-		[","] = "BlkCKlmfdlk",
-		["("] = "BVpoXpmvdsK",
-		[")"] = "VKOiodsOVGjio",
-		["\n"] = "BoDxSKvm",
-		["."] = "VoXPoAsdfm",
-		["="] = "VpSAXPokd",
-		["?"] = "VlopDgmkl",
-		["{"] = "COPvgksodp",
-		["}"] = "Cogjdfsmok"
-	},
-	["reversed"] = {
-		["Cogjdfsmok"] = "}",
-		["COPvgksodp"] = "{",
-		["VlopDgmkl"] = "?",
-		["VpSAXPokd"] = "=",
-		["VoXPoAsdfm"] = ".",
-		["BoDxSKvm"] = "\n",
-		["BlkCKlmfdlk"] = ",",
-		["BOxSVpkm"] = "[",
-		["VpBodXmjk"] = "]",
-		["BoXmcDjVn"] = "'",
-		["SSBipksdmgosdB"] = '"',
-		["BoXMfdOSVM"] = "u",
-		["oKGposdmvSLK"] = " ",
-		["dSObkcxok"] = "!",
-		["gDsxyH"] = "a",
-		["lGDpC"] = "b",
-		["GmVlOdX"] = "c",
-		["bbLxMkFms"] = "d",
-		["SLgMvKdmC"] = "e",
-		["DlMvKsUs"] = "f",
-		["lMxIsAnV"] = "g",
-		["KVMklcsnbJD"] = "w",
-		["PeVFmCXxx"] = "h",
-		["LfMvKdcm"] = "i",
-		["LvMxoIOf"] = "j",
-		["LfMxLGiDmv"] = "k",
-		["LvMxOIdMXX"] = "l",
-		["DlCxOoppXe"] = "m",
-		["FodSKkvlMX"] = "n",
-		["OvkSlvMdikc=="] = "o",
-		["ovMCkdSAOI"] = "p",
-		["LvmAksxmvl"] = "q",
-		["ldMvxNRmx"] = "r",
-		["OckMSixmn"] = "t",
-		["LXoKMdicmm"] = "v",
-		["KvmXkmEgi"] = "s",
-		["LvoASMvlkcx"] = "x",
-		["OdgspjmBOD"] = "y",
-		["kovfkMPdcxpo"] = "z",
-		["CmkSAMNv"] = ":",
-		["OvmSOimjv"] = ";",
-		["LmvoSImvf"] = "-",
-		["KOvkmASkvm"] = "+",
-		["BkPSXOkv"] = "_",
-		["/"] = 'OkcvkMDxlv',
-		["PVmSkxKfm"] = [[\]],
-		["obMDixmvSSS"] = "1",
-		["XjnfJDncxlkm"] = "2",
-		["ClxNJvkdn"] = "3",
-		["glSDncmm"] = "4",
-		["POpckxopMDvcxm"] = "5",
-		["VMcxkAmvke"] = "6",
-		["VOpsdmvjk"] = "7",
-		["ODSjiov"] = "8",
-		["dOSGnjjksvcx"] = "9",
-		["9teuisodmg"] = "0",
-		["BVpoXpmvdsK"] = "(",
-		["VKOiodsOVGjio"] = ")"
-	}
-}
+-- This is your secret 67-bit key (any random bits are OK)
+  local Key53 = 91864841689958098
+  local Key14 = 9952
 
-hashes.API.synapse_hash = function(msg: string)
-	return ""..msg:gsub(".", function(_)
-		return hashes.builtin[_] or "?"
-	end)
+  local inv256
+
+  function encode(str)
+    if not inv256 then
+      inv256 = {}
+      for M = 0, 127 do
+        local inv = -1
+        repeat inv = inv + 2
+        until inv * (2*M + 1) % 256 == 1
+        inv256[M] = inv
+      end
+    end
+    local K, F = Key53, 16384 + Key14
+    return (str:gsub('.',function(m)
+        local L = K % 274877906944
+        local H = (K - L) / 274877906944
+        local M = H % 128
+        m = m:byte()
+        local c = (m * inv256[M] - (H - M) / 128) % 256
+        return ('%02x'):format(c)
+      end))
+  end
+
+  function decode(str)
+    local K, F = Key53, 16384 + Key14
+    return (str:gsub('%x%x', function(c)
+        local L = K % 274877906944
+        local H = (K - L) / 274877906944
+        local M = H % 128
+        c = tonumber(c, 16)
+        local m = (c + (H - M) / 128) * (2*M + 1) % 256
+        return string.char(m)
+      end))
 end
-
-hashes.API.synapse_decrypt = function(msg: string)
-	local replace = function(a,b) msg = msg:gsub(a, b) end
-
-	if msg:find("gDsxyH") then
-		replace("gDsxyH","a")
-	end
-	if msg:find("lGDpC") then
-		replace("lGDpC","b")
-	end
-	if msg:find("GmVlOdX") then
-		replace("GmVlOdX","c")
-	end
-	if msg:find("dSObkcxok") then
-		replace("dSObkcxok","!")
-	end
-	if msg:find("KVMklcsnbJD") then
-		replace("KVMklcsnbJD","w")
-	end
-	if msg:find("bbLxMkFms") then
-		replace("bbLxMkFms","d")
-	end
-	if msg:find("SLgMvKdmC") then
-		replace("SLgMvKdmC","e")
-	end
-	if msg:find("DlMvKsUs") then
-		replace("DlMvKsUs","f")
-	end
-	if msg:find("lMxIsAnV") then
-		replace("lMxIsAnV","g")
-	end
-	if msg:find("PeVFmCXxx") then
-		replace("PeVFmCXxx","h")
-	end
-	if msg:find("LfMvKdcm") then
-		replace("LfMvKdcm","i")
-	end
-	if msg:find("LvMxoIOf") then
-		replace("LvMxoIOf","j")
-	end
-	if msg:find("LfMxLGiDmv") then
-		replace("LfMxLGiDmv","k")
-	end
-	if msg:find("LvMxOIdMXX") then
-		replace("LvMxOIdMXX","l")
-	end
-	if msg:find("DlCxOoppXe") then
-		replace("DlCxOoppXe","m")
-	end
-	if msg:find("FodSKkvlMX") then
-		replace("FodSKkvlMX","n")
-	end
-	if msg:find("OvkSlvMdikc==") then
-		replace("OvkSlvMdikc==","o")
-	end
-	if msg:find("ovMCkdSAOI") then
-		replace("ovMCkdSAOI","p")
-	end
-	if msg:find("LvmAksxmvl") then
-		replace("LvmAksxmvl","q")
-	end
-	if msg:find("ldMvxNRmx") then
-		replace("ldMvxNRmx","r")
-	end
-	if msg:find("OckMSixmn") then
-		replace("OckMSixmn","t")
-	end
-	if msg:find("LXoKMdicmm") then
-		replace("LXoKMdicmm","v")
-	end
-	if msg:find("KvmXkmEgi") then
-		replace("KvmXkmEgi","s")
-	end
-	if msg:find("LvoASMvlkcx") then
-		replace("LvoASMvlkcx","x")
-	end
-	if msg:find("OdgspjmBOD") then
-		replace("OdgspjmBOD","y")
-	end
-	if msg:find("kovfkMPdcxpo") then
-		replace("kovfkMPdcxpo","z")
-	end
-	if msg:find("kovfkMPdcxpo") then
-		replace("kovfkMPdcxpo","z")
-	end
-	if msg:find("oKGposdmvSLK") then
-		replace("oKGposdmvSLK"," ")
-	end
-	if msg:find("BoXMfdOSVM") then
-		replace("BoXMfdOSVM","u")
-	end
-	if msg:find("SSBipksdmgosdB") then
-		replace("SSBipksdmgosdB",'"')
-	end
-	if msg:find("BoXmcDjVn") then
-		replace("BoXmcDjVn","'")
-	end
-	if msg:find("BOxSVpkm") then
-		replace("BOxSVpkm","[")
-	end
-	if msg:find("VpBodXmjk") then
-		replace("VpBodXmjk","]")
-	end
-	if msg:find("BlkCKlmfdlk") then
-		replace("BlkCKlmfdlk",",")
-	end
-	if msg:find("BVpoXpmvdsK") then
-		replace("BVpoXpmvdsK","(")
-	end
-	if msg:find("VKOiodsOVGjio") then
-		replace("VKOiodsOVGjio",")")
-	end
-	if msg:find("BoDxSKvm") then
-		replace("BoDxSKvm","\n")
-	end
-	if msg:find("VoXPoAsdfm") then
-		replace("VoXPoAsdfm",".")
-	end
-	if msg:find("VpSAXPokd") then
-		replace("VpSAXPokd","=")
-	end
-	if msg:find("VlopDgmkl") then
-		replace("VlopDgmkl","?")
-	end
-	if msg:find("COPvgksodp") then
-		replace("COPvgksodp","{")
-	end
-	if msg:find("Cogjdfsmok") then
-		replace("Cogjdfsmok","}")
-	end
-
-	return msg
-end
-
-syn.sha_encrypt = hashes.API.synapse_hash
-syn.sha_decrypt = hashes.API.synapse_decrypt
+syn.sha_encrypt = encode
+syn.sha_decrypt = decode
 
 syn.create_secure_function = function(sha_code)
 	return function() 
