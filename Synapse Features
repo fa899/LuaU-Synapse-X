@@ -270,6 +270,8 @@ syn.is_beta = function() return true end
 syn.request = request or fluxus and fluxus.request or http_request or http.request
 syn.setthreadidentity = setidentity or set_identity or setthreadidentity or set_thread_identity
 
+-- SHA shit, skidded off this:
+-- https://stackoverflow.com/questions/35732880/low-impact-encryption-formula-for-roblox-lua
 -- This is your secret 67-bit key (any random bits are OK)
   local Key53 = 91864841689958098
   local Key14 = 9952
